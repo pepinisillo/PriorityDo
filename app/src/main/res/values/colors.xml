@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="priority_red">#FFE53935</color>
+    <color name="priority_yellow">#FFFDD835</color>
+    <color name="priority_green">#FF43A047</color>
+    <color name="priority_blue">#FF1E88E5</color>
+    <color name="priority_red_light">#FFFFCDD2</color>
+    <color name="priority_yellow_light">#FFFFF9C4</color>
+    <color name="priority_green_light">#FFC8E6C9</color>
+    <color name="priority_blue_light">#FFBBDEFB</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+</resources>

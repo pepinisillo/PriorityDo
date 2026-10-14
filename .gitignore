@@ -1,0 +1,50 @@
+# Gradle
+.gradle/
+**/build/
+.kotlin/
+
+# Local machine / SDK (ruta del Android SDK)
+local.properties
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Captures, NDK, profiling
+captures/
+.externalNativeBuild/
+.cxx/
+*.hprof
+
+# APK / bundles / dex (artefactos compilados)
+*.apk
+*.aar
+*.ap_
+*.aab
+*.dex
+
+# Keystores y secretos de firma (nunca subir)
+*.jks
+*.keystore
+keystore.properties
+secrets.properties
+google-services.json
+
+# Logs y temporales
+*.log
+*.tmp
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# Kotlin / lint
+*.class
+lint/intermediates/
+lint/generated/
+
+# OS / editor
+.vscode/
+*.bak

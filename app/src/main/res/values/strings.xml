@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PriorityDo</string>
+    <string name="tab_sin_fecha">Sin fecha</string>
+    <string name="tab_con_fecha">Con fecha</string>
+    <string name="tab_ver_todo">Ver todo</string>
+    <string name="add_task">Agregar tarea</string>
+    <string name="edit_task">Editar tarea</string>
+    <string name="task_hint">Escribe tu tarea…</string>
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="delete">Eliminar</string>
+    <string name="priority">Prioridad</string>
+    <string name="date">Fecha</string>
+    <string name="time">Hora</string>
+    <string name="repeat">Repetir</string>
+    <string name="repeat_none">Nunca</string>
+    <string name="repeat_daily">Diaria</string>
+    <string name="repeat_weekly">Semanal</string>
+    <string name="repeat_monthly">Mensual</string>
+    <string name="repeat_yearly">Anual</string>
+    <string name="select_date">Seleccionar fecha</string>
+    <string name="no_tasks">No hay tareas pendientes</string>
+    <string name="bubble_notification_title">PriorityDo activa</string>
+    <string name="bubble_notification_text">Burbuja flotante activa</string>
+    <string name="enable_bubble">Activar burbuja flotante</string>
+    <string name="overlay_permission_needed">Se necesita permiso de superposición</string>
+    <string name="task_completed">Tarea completada</string>
+    <string name="task_deleted">Tarea eliminada</string>
+    <string name="undo">Deshacer</string>
+    <string name="every">Cada</string>
+    <string name="no_date">Sin fecha</string>
+</resources>
