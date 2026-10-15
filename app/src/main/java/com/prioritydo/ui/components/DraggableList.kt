@@ -46,7 +46,17 @@ fun DraggableList(
         return
     }
 
-    var localList by remember(tasks) { mutableStateOf(tasks) }
+    // isDraggingActive evita que las actualizaciones de la DB reinicien la lista durante un arrastre
+    var isDraggingActive by remember { mutableStateOf(false) }
+    var localList by remember { mutableStateOf(tasks) }
+
+    // Solo sincronizar la lista desde la DB cuando NO se está arrastrando
+    LaunchedEffect(tasks) {
+        if (!isDraggingActive) {
+            localList = tasks
+        }
+    }
+
     var draggingItemIndex by remember { mutableStateOf<Int?>(null) }
     var draggingItemId by remember { mutableStateOf<Long?>(null) }
     var dragOffsetY by remember { mutableFloatStateOf(0f) }
@@ -57,9 +67,10 @@ fun DraggableList(
         state = listState,
         modifier = modifier
             .fillMaxSize()
-            .pointerInput(localList) {
+            .pointerInput(Unit) {
                 detectDragGesturesAfterLongPress(
                     onDragStart = { offset ->
+                        isDraggingActive = true
                         listState.layoutInfo.visibleItemsInfo
                             .firstOrNull { item ->
                                 offset.y.toInt() in item.offset..(item.offset + item.size)
@@ -104,6 +115,7 @@ fun DraggableList(
                         val movedTaskId = draggingItemId
                         draggingItemId = null
                         dragOffsetY = 0f
+                        isDraggingActive = false
                         if (finalIndex != null) {
                             onReorder(localList, movedTaskId)
                         }
@@ -112,6 +124,9 @@ fun DraggableList(
                         draggingItemIndex = null
                         draggingItemId = null
                         dragOffsetY = 0f
+                        isDraggingActive = false
+                        // Restaurar lista original si se cancela
+                        localList = tasks
                     }
                 )
             },
