@@ -124,15 +124,13 @@ class TaskRepository @Inject constructor(
 
         val resolvedPriority = when {
             previousPriority == null && nextPriority == null -> movedPriority
-            // Si se mueve arriba de una del mismo color → mantiene su color (solo cambia posición)
-            previousPriority == null && nextPriority == movedPriority -> movedPriority
+            previousPriority == null && nextPriority == movedPriority -> movedPriority - 1
             previousPriority == null -> nextPriority!!
-            nextPriority == null && previousPriority == movedPriority -> movedPriority
+            nextPriority == null && previousPriority == movedPriority -> movedPriority + 1
             nextPriority == null -> previousPriority
             previousPriority == nextPriority -> previousPriority
-            // Si la tarea de abajo (nextPriority) tiene el mismo color → solo cambio de posición, sin mutación
-            nextPriority == movedPriority -> movedPriority
             previousPriority == movedPriority -> nextPriority
+            nextPriority == movedPriority -> previousPriority
             else -> movedPriority
         }
 

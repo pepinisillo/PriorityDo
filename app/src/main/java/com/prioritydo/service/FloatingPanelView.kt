@@ -761,7 +761,6 @@ class FloatingPanelView(
             var startIndex = -1
             var currentSteps = 0
             var draggedRow: View? = null
-            var isDraggingStarted = false
             setOnTouchListener { _, event ->
                 when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
@@ -769,8 +768,7 @@ class FloatingPanelView(
                         draggedRow = parent as? View
                         startIndex = draggedRow?.let { tasksContainer.indexOfChild(it) } ?: -1
                         currentSteps = 0
-                        isDraggingStarted = false
-                        // NO bloquear el scroll del ScrollView todavía
+                        parent?.requestDisallowInterceptTouchEvent(true)
                         draggedRow?.elevation = dp(10f).toFloat()
                         draggedRow?.animate()
                             ?.alpha(0.96f)
@@ -782,28 +780,21 @@ class FloatingPanelView(
                         val row = draggedRow
                         if (row != null && startIndex >= 0) {
                             val deltaY = event.rawY - startY
-                            // Solo bloquear scroll del ScrollView cuando hay movimiento real de arrastre
-                            if (!isDraggingStarted && Math.abs(deltaY) > dp(8f)) {
-                                isDraggingStarted = true
-                                parent?.requestDisallowInterceptTouchEvent(true)
-                            }
-                            if (isDraggingStarted) {
-                                val rowStep = dragStepSize(row)
-                                val maxUp = -startIndex
-                                val maxDown = tasksContainer.childCount - 1 - startIndex
-                                val steps = (deltaY / rowStep)
-                                    .roundToInt()
-                                    .coerceIn(maxUp, maxDown)
+                            val rowStep = dragStepSize(row)
+                            val maxUp = -startIndex
+                            val maxDown = tasksContainer.childCount - 1 - startIndex
+                            val steps = (deltaY / rowStep)
+                                .roundToInt()
+                                .coerceIn(maxUp, maxDown)
 
-                                row.translationY = deltaY.coerceIn(
-                                    maxUp * rowStep,
-                                    maxDown * rowStep
-                                )
+                            row.translationY = deltaY.coerceIn(
+                                maxUp * rowStep,
+                                maxDown * rowStep
+                            )
 
-                                if (steps != currentSteps) {
-                                    currentSteps = steps
-                                    previewDragPositions(row, startIndex, startIndex + steps, rowStep)
-                                }
+                            if (steps != currentSteps) {
+                                currentSteps = steps
+                                previewDragPositions(row, startIndex, startIndex + steps, rowStep)
                             }
                         }
                         true
@@ -836,7 +827,6 @@ class FloatingPanelView(
                         draggedRow = null
                         startIndex = -1
                         currentSteps = 0
-                        isDraggingStarted = false
                         true
                     }
                     MotionEvent.ACTION_CANCEL -> {
@@ -845,7 +835,6 @@ class FloatingPanelView(
                         draggedRow = null
                         startIndex = -1
                         currentSteps = 0
-                        isDraggingStarted = false
                         false
                     }
                     else -> true
